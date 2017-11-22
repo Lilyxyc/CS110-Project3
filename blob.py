@@ -11,9 +11,9 @@ class Blob:
         Constructs an empty blob.
         """
 
-        self._P = 0  # number of pixels
-        self._x = 0  # x-coordinate of center of mass
-        self._y = 0  # y-coordinate of center of mass
+        self._P = 0.  # number of pixels
+        self._x = 0.  # x-coordinate of center of mass
+        self._y = 0.  # y-coordinate of center of mass
 
     def add(self, i, j):
         """
