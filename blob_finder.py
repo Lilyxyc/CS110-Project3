@@ -87,8 +87,14 @@ def _main():
 
     finder = BlobFinder(pic, tau)
     beads = finder.getBeads(P)
+    stdio.writef('%d Beads:\n', len(beads))
     for bead in beads:
         stdio.writeln(bead)
+
+    blobs = finder.getBeads(0)
+    stdio.writef('%d Blobs:\n', len(blobs))
+    for blob in blobs:
+        stdio.writeln(blob)
 
 if __name__ == '__main__':
     _main()
