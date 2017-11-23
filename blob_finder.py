@@ -22,7 +22,6 @@ class BlobFinder:
 
         # Create a 2D list of booleans called marked, having the same
         # dimensions as pic.
-        
         x = pic.width()
         y = pic.height()
         marked = stdarray.create2D(x, y, False)
@@ -64,10 +63,10 @@ class BlobFinder:
         blob.add(i, j)
 
         # Recursively call _findBlob() on the N, E, W, S pixels.
-        self._findBlob(pic, tau, i + 1, j, marked, blob) # South
-        self._findBlob(pic, tau, i, j + 1, marked, blob) # East
-        self._findBlob(pic, tau, i, j - 1, marked, blob) # West
-        self._findBlob(pic, tau, i - 1, j, marked, blob) # North
+        self._findBlob(pic, tau, i + 1, j, marked, blob)  # South
+        self._findBlob(pic, tau, i, j + 1, marked, blob)  # East
+        self._findBlob(pic, tau, i, j - 1, marked, blob)  # West
+        self._findBlob(pic, tau, i - 1, j, marked, blob)  # North
 
     def getBeads(self, P):
         """

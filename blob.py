@@ -21,7 +21,7 @@ class Blob:
         """
 
         oldx = self._P * self._x
-        self._x = (oldx + i) / (self._P + 1)    
+        self._x = (oldx + i) / (self._P + 1)
 
         oldy = self._P * self._y
         self._y = (oldy + j) / (self._P + 1)
@@ -32,18 +32,18 @@ class Blob:
         """
         Returns the number of pixels added to this blob, ie, its mass.
         """
+
         return self._P
-        
 
     def distanceTo(self, other):
         """
         Returns the Euclidean distance between the center of mass of this blob
         and the center of mass of other blob.
         """
+
         dx = self._x - other._x
         dy = self._y - other._y
         return sqrt(dx**2 + dy**2)  # the distance
-        
 
     def __str__(self):
         """
