@@ -11,7 +11,20 @@ from picture import Picture
 # each bead moves from one frame to the next (assuming it is no more than
 # delta).
 def main():
-    ...
+    P = int(sys.argv[1])
+    tau = float(sys.argv[2])
+    delta = float(sys.argv[3])
+    files = sys.argv[4:]
+    
+    beads1 = BlobFinder(Picture(files[0]), tau).getBeads(P)
+    for i in range(1, len(files)):
+        beads0 = beads1
+        beads1 = BlobFinder(Picture(files[i]), tau).getBeads(P)
+        for bead in beads0:
+            dist = min(bead.distanceTo(other) for other in beads1)
+            if dist <= delta:
+                stdio.writef('%.4f\n', dist)
+        stdio.writeln()
 
 if __name__ == '__main__':
     main()
