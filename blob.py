@@ -35,9 +35,21 @@ class Blob:
 
         return self._P
 
+    def x(self):
+        """
+        Returns x coordinate of blob.
+        """
+        return self._x
+
+    def y(self):
+        """
+        Returns y coordinate of blob
+        """
+        return self._y
+
     def distanceTo(self, other):
         """
-        Returns the Euclidean distance between the center of mass of this blob
+        Returns the Euclidean dis tance between the center of mass of this blob
         and the center of mass of other blob.
         """
 
