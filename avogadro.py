@@ -10,6 +10,7 @@ RADIUS = 0.5e-6     # m         -- Radius
 
 GASC = 8.31457      # J/K mol   -- Gas constant
 
+
 # Reads in the displacements produced by bead_tracker.py from standard
 # input; computes an estimate of Boltzmann's constant and Avogadro's number;
 # and writes those estimates to standard output.

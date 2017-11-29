@@ -15,7 +15,7 @@ def main():
     tau = float(sys.argv[2])
     delta = float(sys.argv[3])
     files = sys.argv[4:]
-    
+
     beads1 = BlobFinder(Picture(files[0]), tau).getBeads(P)
     for i in range(1, len(files)):
         beads0 = beads1

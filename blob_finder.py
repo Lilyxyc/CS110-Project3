@@ -34,7 +34,7 @@ class BlobFinder:
 
                 # 2. Call _findBlob() with the right arguments.
                 self._findBlob(pic, tau, i, j, marked, blob)
-                
+
                 # 3. Add blob to _blobs if it has a non-zero mass.
                 if blob.mass() > 0:
                     self._blobs.append(blob)
