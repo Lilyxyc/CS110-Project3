@@ -28,7 +28,10 @@ In this program, the thresholding is performed as part of the same step is which
 Blob detection/building
 ---
 
-Blobs are detected by looping through the image, accessing each pixel sequentially. for each pixel, a `Blob` object is created, and a recursive blob-finding function is called. *Note: inefficient to create `Blob` and call function for each pixel?*
+Blobs are detected by the `BlobFinder` class looping through the image, accessing each pixel sequentially. for each pixel, a `Blob` object is created, and a recursive blob-finding function
+`_findBlob` is called. Once all blobs are found and stored, the function `getBeads` can be called to return a list of all blobs above a certain mass threshold.
+
+*Note: inefficient to create `Blob` and call function for each pixel?*
 
 ### `_findBlob` function
 
@@ -38,7 +41,7 @@ The recursive function `_findBlob` is the main mechanism for building blobs from
 * The location is already marked -- *i.e.* visited by a previous `_findBlob` function. This is important both so the function eventually exits, and to prevent double-counting of pixels and blobs
 * The luminance of the pixel is below the threshold value `tau`. This means that the pixel is not in a blob.
 
-If none of these exit conditions are met, the function marks the pixel as visited, adds the pixel to the `Blob` object it is working with, and recursively calls itself on each of the adjacent pixels with the same `Blob`, meaning that the adjacent pixels are be part of the same blob.
+If none of these exit conditions are met, the function marks the pixel as visited, adds the pixel to the `Blob` object it is working with, and recursively calls itself on each of the adjacent pixels with the same `Blob`, meaning that the adjacent pixels will be added to the same blob.
 
 ```python
 self._findBlob(pic, tau, i + 1, j, marked, blob)  # South
@@ -51,7 +54,15 @@ self._findBlob(pic, tau, i - 1, j, marked, blob)  # North
 
 The `Blob` class represents a group of pixels. The internal implementation of the class does not store a list of pixels, however, only the number of pixels, known as the mass, and the average positions, or the center of mass. However, these values are sufficient to describe the blob and can be updated to add new pixels.
 
-The center of mass of a blob with $n$ pixels can be calculated by:
+The `Blob` class has three internal variables:
+
+-----------  ----------- ---------------------------------
+  `self._x`   $\bar{x}$  Center of mass *x* coordinate
+  `self._y`   $\bar{y}$  Center of mass *y* coordinate
+  `self._P`      $n$     Total mass/number of pixels
+-----------  ----------- ---------------------------------
+
+The center of mass of a blob with $n$ pixels, given their coordinates can be calculated by:
 
 $$
 \bar{x} = \frac{x_1+\ldots+x_n}{n}
@@ -107,6 +118,10 @@ def add(self, i, j):
 
         self._P += 1
 ```
+
+### Beads
+
+Only blobs above a certain mass threshold are considered by the blob tracker. This means that background noise will not be falsely considered as a blob. Any blob above the mass threshold is considered to be a bead.
 
 Calculation
 ===
