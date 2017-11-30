@@ -121,7 +121,11 @@ def add(self, i, j):
 
 ### Beads
 
-Only blobs above a certain mass threshold are considered by the blob tracker. This means that background noise will not be falsely considered as a blob. Any blob above the mass threshold is considered to be a bead.
+Only blobs above a certain mass threshold are considered by the blob tracker. This means that background noise will not be falsely considered as a blob. Any blob above the mass threshold is considered to be a bead. These are filtered by a list comprehension in `getBeads`:
+
+```python
+return [blob for blob in self._blobs if blob.mass() >= P]
+```
 
 Calculation
 ===
