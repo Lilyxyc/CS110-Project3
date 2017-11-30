@@ -47,14 +47,16 @@ class BlobFinder:
         identified (blob).
         """
 
-        # Base case: return if pixel (i, j) is out of bounds, or if it
-        # is marked, or if its luminance is less than tau.
+        # Base case -- return if:
+        # Pixel (i, j) is out of bounds
         if i < 0 or i >= pic.width():
             return
         if j < 0 or j >= pic.height():
             return
+        # Pixel is marked
         if marked[i][j]:
             return
+        # Luminance is below threshold.
         if luminance.luminance(pic.get(i, j)) < tau:
             return
 
