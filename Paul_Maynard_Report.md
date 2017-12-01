@@ -10,13 +10,13 @@ The objective of the project is to calculate the Boltzmann constant and Avogadro
 The input data of our program is a set of videos of beads suspended in water. The Brownian motion of the beads can be used to calculate properties of matter, including Avogadro's number. The equations and experiment are based on work by Albert Einstein and Jean Baptiste Perrin.
 
 
-Blob Finding
+Problem 1: Blob Finding
 ===
 
 
 The first task is to identify distinct particles in the image. A particle is defined as a blob of adjacent pixels.
 
-![Blob](blob.png)
+![Blob (pixels in blob highlighted)](blob.png)
 
 Thresholding
 ---
@@ -71,13 +71,13 @@ $$
 \bar{y} = \frac{y_1+\ldots+y_n}{n}
 $$
 
-If a new pixel at $\langle x^\star, y^\star \rangle$ is added, the new center of mass is:
+If a new pixel at $\langle x', y' \rangle$ is added, the new center of mass is:
 
 $$
-\bar{x^\star} = \frac{x_1 + \ldots + x_n + x^\star}{n+1}
+\bar{x'} = \frac{x_1 + \ldots + x_n + x'}{n+1}
 $$
 $$
-\bar{y^\star} = \frac{y_1 + \ldots + y_n + y^\star}{n+1}
+\bar{y'} = \frac{y_1 + \ldots + y_n + y'}{n+1}
 $$
 
 *Note: need better symbol for new than $\star$.*
@@ -96,10 +96,10 @@ $$
 The new average can then be fairly easily computed:
 
 $$
-\bar{x^\star} = \frac{n \bar{x} + x^\star}{n+1}
+\bar{x'} = \frac{n \bar{x} + x'}{n+1}
 $$
 $$
-\bar{y^\star} = \frac{n \bar{y} + y^\star}{n+1}
+\bar{y'} = \frac{n \bar{y} + y'}{n+1}
 $$
 
 This equation is implemented in the `Blob.add` method:
@@ -127,13 +127,12 @@ Only blobs above a certain mass threshold are considered by the blob tracker. Th
 return [blob for blob in self._blobs if blob.mass() >= P]
 ```
 
-Calculation
+Problem 2: Bead Tracking
 ===
 
-The equations for calculating values are:
+...
 
-$$
-D = \sigma^2 = \frac{r_1^2 + \ldots + r_n^2}{2n}
-$$
+Problem 3: Calculation
+===
 
 ...
