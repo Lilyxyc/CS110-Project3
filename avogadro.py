@@ -4,11 +4,13 @@ import stdio
 # Constants:
 PXTOM = 0.175e-6    # m/px      -- Conversion Factor
 
-TEMP = 297.0        # K         --   T: Room temperature
-VISC = 9.135e-4     # Ns/m2     -- eta: Viscosity
-RADIUS = 0.5e-6     # m         -- rho: Radius
+DELTAT = 0.5        # s         -- deltat: Time elapsed between frames
 
-GASC = 8.31457      # J/K mol   --   R: Gas constant
+TEMP = 297.0        # K         --      T: Room temperature
+VISC = 9.135e-4     # Ns/m2     --    eta: Viscosity
+RADIUS = 0.5e-6     # m         --    rho: Radius
+
+GASC = 8.31457      # J/K mol   --      R: Gas constant
 
 
 # Reads in the displacements produced by bead_tracker.py from standard
@@ -18,17 +20,19 @@ def main():
     # Read displacements
     displacements = stdio.readAllFloats()
 
+    # Calculate variance
+
+    #      2   r1^2 + ... + rn^2
+    # sigma  = -----------------
+    #                 2n
+
+    displacements = [(r * PXTOM)**2 for r in displacements]
+    sigsq = sum(displacements)/(2 * len(displacements))
+
     # Calculate self-diffusion constant D
 
-    #        2   r1^2 + ... + rn^2
-    # D = sig  = -----------------
-    #                   2n
-
-    # Convert displacements to meters and square
-    displacements = [(r * PXTOM)**2 for r in displacements]
-
-    # Divide sum by 2 * number of displacements
-    diffusion = sum(displacements)/(2 * len(displacements))
+    # sigma^2 = 2 D deltat ==> D = sigma^2 / 2deltat
+    D = sigsq / (2 * DELTAT)
 
     # Calculate Boltzmann constant k
 
@@ -36,7 +40,7 @@ def main():
     # D = ----------- ==> k = -------------
     #     6pi eta rho               T
 
-    boltzmann = (6.0 * math.pi * VISC * RADIUS * diffusion) / TEMP
+    boltzmann = (6.0 * math.pi * VISC * RADIUS * D) / TEMP
 
     # Print Boltzman (sic) constant
     stdio.writef('Boltzman = %e\n', boltzmann)
